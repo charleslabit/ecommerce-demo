@@ -1,4 +1,4 @@
-import { Categories, PromoBanner } from "@/container";
+import { Categories, Products, PromoBanner } from "@/container";
 import { fetchBanners } from "@/mocks";
 import {
   dehydrate,
@@ -16,6 +16,7 @@ export default async function Home() {
     <HydrationBoundary state={dehydrate(queryClient)}>
       <PromoBanner />
       <Categories />
+      <Products />
     </HydrationBoundary>
   );
 }

@@ -1,19 +1,37 @@
+import { Loader } from "@/component";
 import { fetchCategories } from "@/mocks";
-import { Card, Flex, Group, Image, Text } from "@mantine/core";
+import { Alert, Card, Flex, Image, Stack, Text } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
+import { useQueryState } from "nuqs";
 
 export const Categories = () => {
-  const { data: categories } = useQuery({
+  const [categoryId, setCategoryId] = useQueryState("categoryId", {
+    defaultValue: "",
+  });
+  const {
+    data: categories,
+    isLoading,
+    isError,
+  } = useQuery({
     queryKey: ["categories"],
     queryFn: fetchCategories,
   });
+  if (isLoading) return <Loader />;
+  if (isError) return <Alert color="red">Failed to load products.</Alert>;
+
   return (
-    <Group justify="center">
+    <Stack align="center">
       <Text>Categories</Text>
       <Flex wrap="wrap" gap="md" justify="center">
         {categories?.map((category) => (
-          <Card key={category?.id} w={150} ta="center">
+          <Card
+            key={category?.id}
+            w={150}
+            ta="center"
+            withBorder={category?.id === categoryId}
+          >
             <Image
+              onClick={() => setCategoryId(category?.id)}
               className="fade-in hover-effect cursor-pointer"
               radius="25%"
               height={150}
@@ -27,6 +45,6 @@ export const Categories = () => {
           </Card>
         ))}
       </Flex>
-    </Group>
+    </Stack>
   );
 };

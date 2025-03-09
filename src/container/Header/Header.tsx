@@ -1,8 +1,10 @@
+import useCartStore from "@/store/cart";
 import {
   ActionIcon,
   Center,
   Flex,
   Group,
+  Indicator,
   Text,
   TextInput,
 } from "@mantine/core";
@@ -15,6 +17,7 @@ import {
   IconSearch,
   IconShoppingCart,
 } from "@tabler/icons-react";
+import { useRouter } from "next/navigation";
 
 const actions: SpotlightActionData[] = [
   {
@@ -42,6 +45,11 @@ const actions: SpotlightActionData[] = [
 
 export const Header = () => {
   const isMobile = useMediaQuery("(max-width: 900px)");
+  const router = useRouter();
+  const { cartItems } = useCartStore();
+
+  const onClickHome = () => router.push("/"); // Resets URL to base path
+  const onClickCart = () => router.push("/cart");
 
   return (
     <Center h="100%">
@@ -55,7 +63,9 @@ export const Header = () => {
         }}
       />
       <Flex justify="space-between" align={"center"} w={900}>
-        <Text>Lazapee</Text>
+        <Text onClick={onClickHome} className="cursor-pointer">
+          Lazapee
+        </Text>
         <Group>
           {isMobile ? (
             <ActionIcon
@@ -73,9 +83,11 @@ export const Header = () => {
               rightSection={<IconSearch />}
             />
           )}
-          <ActionIcon variant="transparent">
-            <IconShoppingCart size={100} />
-          </ActionIcon>
+          <Indicator label={cartItems?.length}>
+            <ActionIcon variant="transparent" onClick={onClickCart}>
+              <IconShoppingCart size={100} />
+            </ActionIcon>
+          </Indicator>
         </Group>
       </Flex>
     </Center>
