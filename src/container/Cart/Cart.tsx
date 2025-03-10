@@ -1,5 +1,6 @@
 import { HorizontalCounter } from "@/component";
 import useCartStore from "@/store/cart";
+import { FormattedNumber } from "@/util";
 import {
   Button,
   Card,
@@ -9,8 +10,14 @@ import {
   Stack,
   Text,
   TextInput,
+  Tooltip,
 } from "@mantine/core";
+import { notifications } from "@mantine/notifications";
 import { useState } from "react";
+import { Checkout } from "./Checkout";
+
+const STATIC_SHIPPING_FEE = 45;
+const STATIC_VOUCHER_CODE = "ILOVECK";
 
 export const Cart = () => {
   const { cartItems, updateCartItem } = useCartStore();
@@ -21,7 +28,12 @@ export const Cart = () => {
       return acc;
     }, {} as Record<string, number>)
   );
-  console.log(quantities);
+  const [code, setCode] = useState("");
+  const [hasEnableVoucher, setHasEnableVoucher] = useState(false);
+  const totalPrice = cartItems.reduce(
+    (total, item) => total + item.quantity * item.price,
+    0
+  );
   // Handle quantity changes
   const handleQuantityChange = (productId: string, value: number) => {
     setQuantities((prev) => ({
@@ -32,14 +44,27 @@ export const Cart = () => {
     // Optional: Update the cart store immediately (if needed)
     updateCartItem(productId, value);
   };
-  console.log(cartItems);
+
+  const onApply = () => {
+    if (code !== STATIC_VOUCHER_CODE)
+      return (
+        notifications.show({ title: "Error", message: "Invalid code." }),
+        setHasEnableVoucher(false)
+      );
+    notifications.show({ title: "Success", message: "Applied successfully." });
+    setHasEnableVoucher(true);
+  };
+
+  const onReset = () => {
+    setCode("");
+    setHasEnableVoucher(false);
+  };
 
   return (
     <Grid columns={3}>
-      <Grid.Col span={2}>
+      <Grid.Col span={2} style={{ overflowY: "auto", maxHeight: "100vh" }}>
         <Stack>
           {cartItems?.map((cart, i) => {
-            console.log("mapp", quantities[cart.productId]);
             return (
               <Card key={cart?.productId} withBorder m="auto" w="100%">
                 <Group justify="space-between">
@@ -54,19 +79,18 @@ export const Cart = () => {
                         loading="lazy"
                       />
                     </Card>
-                    <Stack key={i} w={500}>
+                    <Stack key={i} w={400}>
                       <Text fw="bold">{cart?.name}</Text>
                       <Text mt={10} fz={18}>
-                        Descriprion
+                        Description
                       </Text>
                     </Stack>
                   </Group>
                   <Group>
-                    <Text c="orange">₱{cart?.price?.toFixed(2)}</Text>
+                    <Text c="orange">₱{FormattedNumber(cart?.price)}</Text>
                     <HorizontalCounter
                       value={quantities[cart.productId] || 0}
                       onChange={(value) => {
-                        console.log("setting", value);
                         handleQuantityChange(cart.productId, value);
                       }}
                       numberInputProps={{
@@ -88,23 +112,43 @@ export const Cart = () => {
               Order Summary
             </Text>
             <Group>
-              <TextInput placeholder="Enter Voucher Code" />
-              <Button>Apply</Button>
+              <Tooltip
+                label={`Use ${STATIC_VOUCHER_CODE} to get free shipping`}
+              >
+                <TextInput
+                  value={code}
+                  disabled={hasEnableVoucher}
+                  placeholder="Enter Voucher Code"
+                  onChange={(e) => setCode(e.target.value)}
+                />
+              </Tooltip>
+              {hasEnableVoucher ? (
+                <Button onClick={onReset}>Reset</Button>
+              ) : (
+                <Button onClick={onApply}>Apply</Button>
+              )}
             </Group>
             <Group justify="space-between">
               <Text fz={18}>Shipping Fee</Text>
-              <Text c="orange" fz={18}>
-                P45.00
+              <Text
+                c="orange"
+                td={hasEnableVoucher ? "line-through" : undefined}
+                fz={18}
+              >
+                P{STATIC_SHIPPING_FEE.toFixed(2)}
               </Text>
             </Group>
 
             <Group justify="space-between">
               <Text fz={18}>Total</Text>
               <Text c="orange" fz={18}>
-                P339.29
+                P
+                {FormattedNumber(
+                  totalPrice + (hasEnableVoucher ? 0 : STATIC_SHIPPING_FEE)
+                )}
               </Text>
             </Group>
-            <Button>Proceed to Checkout</Button>
+            <Checkout />
           </Stack>
         </Card>
       </Grid.Col>

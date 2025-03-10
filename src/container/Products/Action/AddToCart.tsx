@@ -4,15 +4,14 @@ import { Button } from "@mantine/core";
 
 interface AddToCartProps {
   product: Product | undefined;
-  quantity: number;
 }
 
-export const AddToCart = ({ product, quantity }: AddToCartProps) => {
+export const AddToCart = ({ product }: AddToCartProps) => {
   const { addCartItem } = useCartStore();
   const handleAddToCart = () => {
     if (!product) return;
     addCartItem({
-      quantity,
+      quantity: 1,
       imageUrl: product.imageUrls[0],
       name: product.name,
       price: product.price,
@@ -20,9 +19,5 @@ export const AddToCart = ({ product, quantity }: AddToCartProps) => {
     });
   };
 
-  return (
-    <Button onClick={handleAddToCart} disabled={!product || quantity < 1}>
-      Add To Cart
-    </Button>
-  );
+  return <Button onClick={handleAddToCart}>Add To Cart</Button>;
 };

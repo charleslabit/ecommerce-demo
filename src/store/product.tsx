@@ -1,14 +1,13 @@
-import { CartItem, Product } from "@/mocks/";
+import { CartItem } from "@/mocks/";
 import { create } from "zustand";
 
 type Store = {
   cartItems: CartItem[];
   addCartItem: (value: CartItem) => void;
-  updateCartItems: (product: Product, quantity?: number) => void;
   updateCartItem: (productId: string, quantity: number) => void;
   removeCartItem: (productId: string) => void;
 };
-const useCartStore = create<Store>()((set) => ({
+const useProductStore = create<Store>()((set) => ({
   cartItems: [
     {
       quantity: 4,
@@ -40,37 +39,6 @@ const useCartStore = create<Store>()((set) => ({
       return { cartItems: [...state.cartItems, item] };
     }),
 
-  updateCartItems: (product, quantity) =>
-    set((state) => {
-      const isExist = !!state.cartItems.find(
-        (cartItem) => cartItem.productId === product?.id
-      );
-      if (isExist) {
-        // Update quantity if item already exists
-        return {
-          cartItems: state.cartItems.map((cartItem) =>
-            cartItem.productId === product?.id
-              ? { ...cartItem, quantity: quantity || 0 }
-              : cartItem
-          ),
-        };
-      }
-
-      // Freshly Add
-      return {
-        cartItems: [
-          ...state.cartItems,
-          {
-            imageUrl: product?.imageUrls[0],
-            name: product?.name,
-            price: product?.price,
-            productId: product?.id,
-            quantity: 1,
-          },
-        ],
-      };
-    }),
-
   updateCartItem: (productId, quantity) =>
     set((state) => ({
       cartItems: state.cartItems.map((item) =>
@@ -84,4 +52,4 @@ const useCartStore = create<Store>()((set) => ({
     })),
 }));
 
-export default useCartStore;
+export default useProductStore;

@@ -19,7 +19,7 @@ export const HorizontalCounter = ({
   onChange,
 }: HorizontalCounterProps) => {
   return (
-    <Group>
+    <Group justify="center">
       <ActionIcon
         disabled={value <= (numberInputProps?.min || 0)}
         variant="default"

@@ -1,6 +1,7 @@
 import { Loader } from "@/component";
 import { HorizontalCounter } from "@/component/";
-import { fetchProduct } from "@/mocks";
+import { fetchProduct, Product } from "@/mocks";
+import useCartStore from "@/store/cart";
 import {
   Alert,
   Card,
@@ -13,12 +14,11 @@ import {
 } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
-import { useState } from "react";
 import { AddToCart } from "./Action/AddToCart";
 
-export const Product = () => {
+export const ProductPage = () => {
   const { id } = useParams() as { id: string };
-  const [quantity, setQuantity] = useState(0);
+  const { cartItems, updateCartItems } = useCartStore();
 
   const {
     data: product,
@@ -28,8 +28,13 @@ export const Product = () => {
     queryKey: ["product", id],
     queryFn: async () => await fetchProduct(id),
   });
+
+  const handleQuantityChange = (item: Product, quantity: number) => {
+    updateCartItems(item, quantity);
+  };
   if (isLoading) return <Loader />;
-  if (isError) return <Alert color="red">Failed to load products.</Alert>;
+  if (!product || isError)
+    return <Alert color="red">Failed to load products.</Alert>;
 
   return (
     <Center>
@@ -54,15 +59,23 @@ export const Product = () => {
           </Text>
 
           <Group>
-            <HorizontalCounter
-              value={quantity}
-              onChange={setQuantity}
-              numberInputProps={{
-                min: 0,
-                max: 99,
-              }}
-            />
-            <AddToCart product={product} quantity={quantity} />
+            {!!cartItems?.find((item) => item.productId === product?.id) ? (
+              <HorizontalCounter
+                value={
+                  cartItems?.find((item) => item.productId === product?.id)
+                    ?.quantity || 0
+                }
+                onChange={(value) => {
+                  handleQuantityChange(product, value);
+                }}
+                numberInputProps={{
+                  min: 0,
+                  max: 99,
+                }}
+              />
+            ) : (
+              <AddToCart product={product} />
+            )}
           </Group>
         </Stack>
       </Group>

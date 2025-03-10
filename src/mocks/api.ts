@@ -28,12 +28,12 @@ export function fetchProducts(): Promise<Product[]> {
   });
 }
 
-export function fetchProduct(id: string): Promise<Product | undefined> {
-  return new Promise((resolve) => {
-    mockProducts?.find((product) => product?.id === id);
-    setTimeout(() => {
-      resolve(mockProducts?.find((product) => product?.id === id));
-    }, 0);
+export function fetchProduct(id: string): Promise<Product> {
+  return new Promise((resolve, reject) => {
+    const product = mockProducts?.find((product) => product?.id === id);
+    if (!product)
+      return reject(new Error(`Product with ID "${id}" not found.`));
+    setTimeout(() => resolve(product), 0);
   });
 }
 

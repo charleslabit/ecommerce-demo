@@ -50,7 +50,9 @@ export interface Product {
   tags?: string[]; // For improved search and filtering
   price: number;
   salePrice?: number; // Optional for discounts
+  isEnableCounter?: boolean; // Used for displaying the HorizontalCounter when additing to cart in products page
   isFeatured?: boolean;
+  quantity?: number;
 }
 
 export interface CartItem {

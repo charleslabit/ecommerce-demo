@@ -43,6 +43,7 @@ export const PromoBanner = () => {
 
   return (
     <Carousel
+      id="home"
       height={450}
       dragFree
       loop

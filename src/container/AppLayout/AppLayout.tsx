@@ -20,7 +20,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           {children}
         </Stack>
       </AppShell.Main>
-      <AppShell.Footer p="md">
+      <AppShell.Footer p="md" pos="relative">
         <Footer />
       </AppShell.Footer>
     </AppShell>
