@@ -6,7 +6,7 @@ type Store = {
   addCartItem: (value: CartItem) => void;
   updateCartItems: (product: Product, quantity?: number) => void;
   updateCartItem: (productId: string, quantity: number) => void;
-  removeCartItem: (productId: string) => void;
+  removeCartItems: (productIds: string[]) => void; // New function
 };
 const useCartStore = create<Store>()((set) => ({
   cartItems: [
@@ -78,9 +78,11 @@ const useCartStore = create<Store>()((set) => ({
       ),
     })),
 
-  removeCartItem: (productId) =>
+  removeCartItems: (productIds) =>
     set((state) => ({
-      cartItems: state.cartItems.filter((item) => item.productId !== productId),
+      cartItems: state.cartItems.filter(
+        (item) => !productIds.includes(item.productId)
+      ),
     })),
 }));
 

@@ -17,7 +17,11 @@ export const Header = () => {
 
         <Group>
           <Search />
-          <Indicator label={cartItems?.length} size={15}>
+          <Indicator
+            disabled={cartItems?.length < 1}
+            label={cartItems?.length}
+            size={15}
+          >
             <ActionIcon variant="transparent" onClick={onClickCart} mt={5}>
               <IconShoppingCart size={100} />
             </ActionIcon>
