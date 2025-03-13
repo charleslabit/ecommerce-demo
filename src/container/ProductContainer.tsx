@@ -1,20 +1,11 @@
 import { Loader, ProductDetails } from "@/component";
-import { fetchProduct } from "@/services/";
+import { useProduct } from "@/hooks";
 import { Alert, Center } from "@mantine/core";
-import { useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 
 export const ProductContainer = () => {
   const { id } = useParams() as { id: string };
-
-  const {
-    data: product,
-    isError,
-    isLoading,
-  } = useQuery({
-    queryKey: ["product", id],
-    queryFn: () => fetchProduct(id),
-  });
+  const { data: product, isError, isLoading } = useProduct({ id });
 
   if (isLoading) return <Loader />;
   if (!product || isError)

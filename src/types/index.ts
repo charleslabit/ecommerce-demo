@@ -62,3 +62,7 @@ export interface CartItem {
   name: string; // Useful for displaying product info in cart
   imageUrl: string; // To show product preview in the cart
 }
+
+export interface ProductsProps {
+  categoryId?: string;
+}

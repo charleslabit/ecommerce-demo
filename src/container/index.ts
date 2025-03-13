@@ -4,4 +4,4 @@ export * from "./CategoriesContainer";
 export * from "./layout";
 export * from "./ProductContainer";
 export * from "./ProductsContainer";
-export * from "./PromoBanner";
+export * from "./PromoBannerContainer";

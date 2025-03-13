@@ -1,24 +1,38 @@
 import {
   CategoriesContainer,
   ProductsContainer,
-  PromoBanner,
+  PromoBannerContainer,
 } from "@/container";
-import { fetchBanners } from "@/services";
+import { fetchBanners, fetchCategories, fetchProducts } from "@/services";
 import {
   dehydrate,
   HydrationBoundary,
   QueryClient,
 } from "@tanstack/react-query";
 
-export default async function Home() {
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: Promise<{ categoryId: string }>;
+}) {
+  const { categoryId } = await searchParams;
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery({
     queryKey: ["promo-banners"],
     queryFn: fetchBanners,
   });
+  queryClient.prefetchQuery({
+    queryKey: ["categories"],
+    queryFn: fetchCategories,
+  });
+  queryClient.prefetchQuery({
+    queryKey: ["products", categoryId],
+    queryFn: () => fetchProducts({ categoryId }),
+  });
+
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <PromoBanner />
+      <PromoBannerContainer />
       <CategoriesContainer />
       <ProductsContainer />
     </HydrationBoundary>

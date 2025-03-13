@@ -1,10 +1,16 @@
 import { mockProducts } from "@/mocks";
-import { Product } from "@/types";
+import { Product, ProductsProps } from "@/types";
 
-export function fetchProducts(): Promise<Product[]> {
+export function fetchProducts({
+  categoryId,
+}: ProductsProps): Promise<Product[]> {
   return new Promise((resolve) => {
     setTimeout(() => {
-      resolve(mockProducts);
+      resolve(
+        mockProducts?.filter((product) =>
+          categoryId ? product?.categoryId === categoryId : true
+        )
+      );
     }, 0);
   });
 }

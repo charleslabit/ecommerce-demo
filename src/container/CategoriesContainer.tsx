@@ -14,7 +14,7 @@ export const CategoriesContainer = () => {
 
   return (
     <CategoryList
-      categories={categories || [{ id: "", name: "", imageUrl: "" }]}
+      categories={categories || []}
       selectedCategory={selectedCategory}
       onSelect={setSelectedCategory}
     />
