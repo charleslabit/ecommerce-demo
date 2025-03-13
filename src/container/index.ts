@@ -1,8 +1,7 @@
 "use client";
-export * from "./AppLayout";
-export * from "./Cart";
-export * from "./Categories";
-export * from "./Footer";
-export * from "./Header";
-export * from "./Products";
+export * from "./CartContainer";
+export * from "./CategoriesContainer";
+export * from "./layout";
+export * from "./ProductContainer";
+export * from "./ProductsContainer";
 export * from "./PromoBanner";

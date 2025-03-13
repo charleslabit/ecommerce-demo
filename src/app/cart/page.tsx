@@ -1,5 +1,5 @@
-import { Cart } from "@/container";
+import { CartContainer } from "@/container";
 const page = () => {
-  return <Cart />;
+  return <CartContainer />;
 };
 export default page;

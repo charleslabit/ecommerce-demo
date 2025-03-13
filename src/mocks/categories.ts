@@ -1,4 +1,4 @@
-import { Category } from "./types";
+import { Category } from "@/types";
 
 export const mockCategories: Category[] = [
   { id: "1", name: "Vegetables", imageUrl: "/categories/vegetable.png" },

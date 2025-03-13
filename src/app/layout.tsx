@@ -1,12 +1,11 @@
 import { Layout } from "@/container/";
+import { QueryProvider, ThemeProvider } from "@/providers";
 import "@mantine/carousel/styles.css";
 import "@mantine/core/styles.css";
 import "@mantine/notifications/styles.css";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
-import { QueryProvider } from "./QueryProvider";
-import { ThemeProvider } from "./ThemeProvider";
 import "./global.css";
 
 const geistSans = Geist({

@@ -1,4 +1,4 @@
-import { CartItem, Product } from "@/mocks/";
+import { CartItem, Product } from "@/types/";
 import { create } from "zustand";
 
 type Store = {

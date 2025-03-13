@@ -1,5 +1,5 @@
-import { ProductPage } from "@/container";
-import { fetchProduct } from "@/mocks";
+import { ProductContainer } from "@/container";
+import { fetchProduct } from "@/services";
 import {
   dehydrate,
   HydrationBoundary,
@@ -15,7 +15,7 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   });
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <ProductPage />
+      <ProductContainer />
     </HydrationBoundary>
   );
 };
