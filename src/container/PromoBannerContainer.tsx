@@ -21,7 +21,6 @@ export const PromoBannerContainer = () => {
   const handleMouseEnter = () => autoplay.current?.stop(); // Stop autoplay on hover
   const handleMouseLeave = () => autoplay.current?.play(); // Resume autoplay when hover ends
 
-  // Memoized slide generation for performance optimization
   const slides = useMemo(
     () =>
       banners.map((banner, index) => (
@@ -29,15 +28,14 @@ export const PromoBannerContainer = () => {
           key={banner.id}
           style={{ opacity: index === activeIndex ? 1 : 0.3 }}
         >
-          <Flex justify="center" w={800} h={400}>
+          <Flex justify="center" mah={400}>
             <Image
               className="cursor-pointer"
-              w="100%"
               h="auto"
               src={banner.imageUrl}
               alt={`Banner ${index + 1}`}
-              fit="contain"
               loading="lazy"
+              fit="contain"
             />
           </Flex>
         </Carousel.Slide>
@@ -48,7 +46,6 @@ export const PromoBannerContainer = () => {
   return (
     <Carousel
       id="home"
-      height={450}
       dragFree
       loop
       slideSize="60%"
