@@ -1,12 +1,13 @@
 import { useBanners } from "@/hooks";
 import { Carousel } from "@mantine/carousel";
-import { Flex, Image } from "@mantine/core";
+import { Box } from "@mantine/core";
 import {
   IconCircleChevronLeft,
   IconCircleChevronRight,
 } from "@tabler/icons-react";
 import Autoplay from "embla-carousel-autoplay";
-import { useEffect, useMemo, useRef, useState } from "react";
+import Image from "next/image";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export const PromoBannerContainer = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -14,34 +15,12 @@ export const PromoBannerContainer = () => {
   const { data: banners = [] } = useBanners();
 
   useEffect(() => {
-    const autoplayInstance = autoplay.current;
-    return () => autoplayInstance?.stop(); // Cleanup on unmount
+    return () => autoplay.current?.stop(); // Cleanup on unmount
   }, []);
 
-  const handleMouseEnter = () => autoplay.current?.stop(); // Stop autoplay on hover
-  const handleMouseLeave = () => autoplay.current?.play(); // Resume autoplay when hover ends
-
-  const slides = useMemo(
-    () =>
-      banners.map((banner, index) => (
-        <Carousel.Slide
-          key={banner.id}
-          style={{ opacity: index === activeIndex ? 1 : 0.3 }}
-        >
-          <Flex justify="center" mah={400}>
-            <Image
-              className="cursor-pointer"
-              h="auto"
-              src={banner.imageUrl}
-              alt={`Banner ${index + 1}`}
-              loading="lazy"
-              fit="contain"
-            />
-          </Flex>
-        </Carousel.Slide>
-      )),
-    [banners, activeIndex]
-  );
+  // Memoized handlers
+  const handleMouseEnter = useCallback(() => autoplay.current?.stop(), []);
+  const handleMouseLeave = useCallback(() => autoplay.current?.play(), []);
 
   return (
     <Carousel
@@ -60,7 +39,23 @@ export const PromoBannerContainer = () => {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      {slides}
+      {banners.map((banner, index) => (
+        <Carousel.Slide
+          key={banner.id}
+          style={{ opacity: index === activeIndex ? 1 : 0.3 }}
+        >
+          <Box pos="relative" w="100%" h={400}>
+            <Image
+              className="cursor-pointer"
+              src={banner.imageUrl}
+              alt={`Banner ${index + 1}`}
+              fill
+              priority={index === 0} // First image loads eagerly
+              quality={80}
+            />
+          </Box>
+        </Carousel.Slide>
+      ))}
     </Carousel>
   );
 };
