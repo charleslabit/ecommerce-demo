@@ -9,16 +9,7 @@ type Store = {
   removeCartItems: (productIds: string[]) => void; // New function
 };
 const useCartStore = create<Store>()((set) => ({
-  cartItems: [
-    {
-      quantity: 4,
-      imageUrl:
-        "https://img.freepik.com/free-vector/fresh-purple-eggplant_24877-82136.jpg?ga=GA1.1.484030290.1741493567&semt=ais_hybrid",
-      name: "Eggplant",
-      price: 35,
-      productId: "1",
-    },
-  ],
+  cartItems: [],
   addCartItem: (item) =>
     set((state) => {
       const existingItem = state.cartItems.find(
