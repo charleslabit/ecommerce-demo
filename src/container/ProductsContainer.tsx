@@ -13,7 +13,7 @@ export const ProductsContainer = () => {
   const [search] = useQueryState("search", {
     defaultValue: "",
   });
-  const [sortBy, setSortBy] = useQueryState<SortByOptions>("sortBy", {
+  const [sortBy] = useQueryState<SortByOptions>("sortBy", {
     defaultValue: SortByOptions.NONE,
     parse: (value) => value as SortByOptions, // ✅ Ensures correct type
   });
