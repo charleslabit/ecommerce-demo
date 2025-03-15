@@ -121,8 +121,8 @@ export const Footer = () => {
         <Grid.Col span={1}>
           <Text>CK Mart is now available!</Text>
           <Group mb={40} w={300}>
-            <Image src={"/app/AppStore.svg"} />
-            <Image src={"/app/GooglePlay.svg"} />
+            <Image src={"/app/AppStore.svg"} alt="Appstore Logo" />
+            <Image src={"/app/GooglePlay.svg"} alt="Googleplay Logo" />
           </Group>
         </Grid.Col>
       </Grid>
