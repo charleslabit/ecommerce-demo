@@ -22,7 +22,12 @@ export const Header = () => {
             label={cartItems?.length}
             size={15}
           >
-            <ActionIcon variant="transparent" onClick={onClickCart} mt={5}>
+            <ActionIcon
+              variant="transparent"
+              onClick={onClickCart}
+              mt={5}
+              data-testid="cart-icon"
+            >
               <IconShoppingCart size={100} />
             </ActionIcon>
           </Indicator>

@@ -8,7 +8,12 @@ export const HomeLogo = () => {
     router.push("/");
   };
   return (
-    <Badge size="xl" onClick={onClickHome} className="cursor-pointer">
+    <Badge
+      size="xl"
+      onClick={onClickHome}
+      className="cursor-pointer"
+      data-testid="home-button"
+    >
       CK Mart
     </Badge>
   );

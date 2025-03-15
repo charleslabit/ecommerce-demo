@@ -17,7 +17,11 @@ export const ThemeSettings = () => {
         touch: true,
       }}
     >
-      <ActionIcon variant="transparent" onClick={toggleDarkMode}>
+      <ActionIcon
+        variant="transparent"
+        onClick={toggleDarkMode}
+        data-testid="theme-settings"
+      >
         {colorScheme === "dark" ? <IconSun /> : <IconMoon />}
       </ActionIcon>
     </Tooltip>
