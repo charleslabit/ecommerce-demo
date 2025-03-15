@@ -65,4 +65,5 @@ export interface CartItem {
 
 export interface ProductsProps {
   categoryId?: string;
+  search?: string;
 }

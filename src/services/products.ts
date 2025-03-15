@@ -3,13 +3,20 @@ import { Product, ProductsProps } from "@/types";
 
 export function fetchProducts({
   categoryId,
+  search,
 }: ProductsProps): Promise<Product[]> {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(
-        mockProducts?.filter((product) =>
-          categoryId ? product?.categoryId === categoryId : true
-        )
+        mockProducts?.filter((product) => {
+          const matchesCategory = categoryId
+            ? product?.categoryId === categoryId
+            : true;
+          const matchesSearch = search
+            ? product.name.toLowerCase().includes(search.toLowerCase())
+            : true;
+          return matchesCategory && matchesSearch;
+        })
       );
     }, 0);
   });

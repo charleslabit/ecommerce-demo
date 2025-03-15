@@ -2,16 +2,21 @@ import { Empty, Loader } from "@/component";
 import { ProductCard } from "@/component/";
 import { useProducts } from "@/hooks";
 import useCartStore from "@/store/cart";
-import { Alert, Flex, Stack, Text } from "@mantine/core";
+import { Alert, Flex, Group, Stack, Text } from "@mantine/core";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useQueryState } from "nuqs";
 
 export const ProductsContainer = () => {
+  const router = useRouter();
   const categoryId = useSearchParams().get("categoryId") as string;
+  const [search] = useQueryState("search", {
+    defaultValue: "",
+  });
   const { products, isLoading, isError, onClickAddToCart } = useProducts({
     categoryId,
+    search,
   });
   const { cartItems, updateCartItems } = useCartStore();
-  const router = useRouter();
 
   if (isLoading) return <Loader />;
   if (!products || isError)
@@ -20,6 +25,11 @@ export const ProductsContainer = () => {
   return (
     <Stack align="center">
       <Text>Products</Text>
+      {search && (
+        <Group justify="left" w="100%">
+          <Text>Search results for "{search}"</Text>
+        </Group>
+      )}
       <Flex wrap="wrap" gap={30} justify="center">
         {products.length > 0 ? (
           products.map((product) => (

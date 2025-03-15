@@ -1,13 +1,9 @@
 import { fetchProducts } from "@/services";
 import useCartStore from "@/store/cart";
-import { Product } from "@/types";
+import { Product, ProductsProps } from "@/types";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 
-interface ProductsParams {
-  categoryId?: string;
-}
-
-export const useProducts = ({ categoryId = "" }: ProductsParams = {}) => {
+export const useProducts = ({ categoryId, search }: ProductsProps) => {
   const queryClient = useQueryClient();
   const { cartItems, updateCartItems } = useCartStore();
   const {
@@ -15,9 +11,9 @@ export const useProducts = ({ categoryId = "" }: ProductsParams = {}) => {
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["products", categoryId],
+    queryKey: ["products", categoryId, search],
     queryFn: async () => {
-      const result = await fetchProducts({ categoryId });
+      const result = await fetchProducts({ categoryId, search });
       return result?.map((product) => ({
         ...product,
         isEnableCounter: !!cartItems?.find(
