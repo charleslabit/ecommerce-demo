@@ -3,7 +3,7 @@ import useCartStore from "@/store/cart";
 import { Product, ProductsProps } from "@/types";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 
-export const useProducts = ({ categoryId, search }: ProductsProps) => {
+export const useProducts = ({ categoryId, search, sortBy }: ProductsProps) => {
   const queryClient = useQueryClient();
   const { cartItems, updateCartItems } = useCartStore();
   const {
@@ -11,9 +11,9 @@ export const useProducts = ({ categoryId, search }: ProductsProps) => {
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["products", categoryId, search],
+    queryKey: ["products", categoryId, search, sortBy],
     queryFn: async () => {
-      const result = await fetchProducts({ categoryId, search });
+      const result = await fetchProducts({ categoryId, search, sortBy });
       return result?.map((product) => ({
         ...product,
         isEnableCounter: !!cartItems?.find(

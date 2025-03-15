@@ -63,7 +63,16 @@ export interface CartItem {
   imageUrl: string; // To show product preview in the cart
 }
 
+export enum SortByOptions {
+  NONE = "",
+  NAME_ASC = "name-asc",
+  NAME_DESC = "name-desc",
+  PRICE_ASC = "price-asc",
+  PRICE_DESC = "price-desc",
+}
+
 export interface ProductsProps {
   categoryId?: string;
   search?: string;
+  sortBy?: SortByOptions;
 }
