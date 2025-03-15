@@ -1,11 +1,12 @@
-# 🚀 Portfolio Website
+# 🚀 E-commerce Website
 
-A personal portfolio built with **Next.js 15.2**, **TypeScript**, and **Mantine UI** to showcase projects, skills, and experience. Includes Playwright tests for UI validation.
+An e-commerce built with **Next.js 15.2**, **TypeScript**, and **Mantine UI** to showcase projects, skills, and experience. Includes Playwright tests for UI validation.
 
 ## ✨ Features
 
 - 🌟 **Modern UI** – Built with Mantine UI for a sleek and responsive design.
-- 📌 **Project Showcase** – Highlights key projects with descriptions and live links.
+- 🛒 **E-Commerce Demo** – Showcases adding to cart with search, sort, and category filters.
+- 🔄 **State Management** – Efficiently manages UI state for cart, filters, and product data.
 - 🌗 **Dark Mode Support** – Theme switching using Mantine Provider.
 - ⚡ **Performance Optimized** – Efficient rendering and lazy loading.
 - ✅ **Playwright Testing** – Automated UI tests for critical components.
