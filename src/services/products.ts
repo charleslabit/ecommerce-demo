@@ -8,7 +8,7 @@ export function fetchProducts({
 }: ProductsProps): Promise<Product[]> {
   return new Promise((resolve) => {
     setTimeout(() => {
-      let filteredProducts = mockProducts?.filter((product) => {
+      const filteredProducts = mockProducts?.filter((product) => {
         const matchesCategory = categoryId
           ? product?.categoryId === categoryId
           : true;
