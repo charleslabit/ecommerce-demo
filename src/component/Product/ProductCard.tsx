@@ -31,6 +31,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
 
   return (
     <Card
+      style={{ zIndex: 0 }}
       className="fade-in hover-effect cursor-pointer"
       w={235}
       shadow="sm"

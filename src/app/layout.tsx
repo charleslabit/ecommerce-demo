@@ -1,3 +1,4 @@
+import { auth } from "@/auth";
 import { Layout } from "@/container/";
 import { QueryProvider, ThemeProvider } from "@/providers";
 import "@mantine/carousel/styles.css";
@@ -23,11 +24,12 @@ export const metadata: Metadata = {
   description: "Front End Developer",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await auth();
   return (
     <html lang="en">
       <head>
@@ -37,7 +39,7 @@ export default function RootLayout({
         <QueryProvider>
           <ThemeProvider>
             <NuqsAdapter>
-              <Layout>{children}</Layout>
+              <Layout session={session}>{children}</Layout>
             </NuqsAdapter>
           </ThemeProvider>
         </QueryProvider>

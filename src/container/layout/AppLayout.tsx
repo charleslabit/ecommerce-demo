@@ -1,9 +1,16 @@
 "use client";
 import { AppShell, Stack } from "@mantine/core";
+import { Session } from "next-auth";
 import { Footer } from "./Footer";
 import { Header } from "./Header";
 
-export function Layout({ children }: { children: React.ReactNode }) {
+export function Layout({
+  children,
+  session,
+}: {
+  children: React.ReactNode;
+  session: Session | null;
+}) {
   return (
     <AppShell
       padding="md"
@@ -12,7 +19,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       }}
     >
       <AppShell.Header p={"md"}>
-        <Header />
+        <Header session={session} />
       </AppShell.Header>
 
       <AppShell.Main maw={1440} m="Auto">
