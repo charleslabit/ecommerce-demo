@@ -36,6 +36,7 @@ import { ReactNode, useEffect, useState } from "react";
 // 🟢 Import DnD-Kit utilities
 import {
   DndContext,
+  DragEndEvent,
   PointerSensor,
   closestCenter,
   useSensor,
@@ -194,7 +195,7 @@ export const AdminCategories = () => {
   };
 
   // 🟢 Handle reordering after drag
-  const handleDragEnd = (event: any) => {
+  const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
     if (!over || active.id === over.id) return;
     queryClient.setQueryData(
