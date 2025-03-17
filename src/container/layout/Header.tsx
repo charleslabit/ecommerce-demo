@@ -13,11 +13,13 @@ import {
   Indicator,
   Menu,
   Text,
+  Tooltip,
 } from "@mantine/core";
 import {
   IconBrandGithub,
   IconBrandGoogle,
   IconLogout2,
+  IconSettings,
   IconShoppingCart,
   IconUser,
 } from "@tabler/icons-react";
@@ -50,6 +52,7 @@ export const Header = ({ session }: { session: Session | null }) => {
   };
 
   const onClickCart = () => router.push("/cart");
+  const onClickInventory = () => router.push("/admin/categories");
 
   return (
     <Center h="100%">
@@ -79,6 +82,18 @@ export const Header = ({ session }: { session: Session | null }) => {
             </ActionIcon>
           </Indicator>
           <ThemeSettings />
+          <Tooltip
+            label={"Inventory Management"}
+            events={{
+              hover: true,
+              focus: true,
+              touch: true,
+            }}
+          >
+            <ActionIcon variant="transparent" onClick={onClickInventory}>
+              <IconSettings />
+            </ActionIcon>
+          </Tooltip>
         </Group>
       </Flex>
     </Center>

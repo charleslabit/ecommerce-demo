@@ -14,7 +14,7 @@ function makeQueryClient() {
       queries: {
         refetchOnWindowFocus: false,
         refetchOnReconnect: false,
-        refetchOnMount: false,
+        refetchOnMount: true,
         staleTime: 5 * MINUTE, // time before it renders
         gcTime: 10 * MINUTE, //does nothing as long as a query is still in use.
         //It only kicks in as soon as the query becomes unused.

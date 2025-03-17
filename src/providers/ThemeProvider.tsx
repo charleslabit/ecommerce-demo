@@ -37,6 +37,17 @@ const themeComponents = {
       fz: 25,
     },
   },
+  Modal: {
+    styles: () => ({
+      title: {
+        fontSize: 20,
+        fontWeight: "bold",
+      },
+      root: {
+        fontSize: 14,
+      },
+    }),
+  },
 
   Badge: {
     styles: () => ({

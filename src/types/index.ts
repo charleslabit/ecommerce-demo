@@ -76,3 +76,5 @@ export interface ProductsProps {
   search?: string;
   sortBy?: SortByOptions;
 }
+
+export type FileProps = File | string | null;

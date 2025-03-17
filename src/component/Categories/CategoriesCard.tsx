@@ -1,4 +1,5 @@
 import { Category } from "@/types";
+import { getImageSrc } from "@/util";
 import { Card, Image, Text } from "@mantine/core";
 
 interface CategoryCardProps {
@@ -18,10 +19,11 @@ export const CategoryCard: React.FC<CategoryCardProps> = ({
         onClick={() => onSelect(category.id)}
         className="fade-in hover-effect cursor-pointer"
         radius="25%"
-        height={150}
-        src={category.imageUrl}
+        height={118}
+        src={getImageSrc(category?.imageUrl)}
         alt={category.name}
         loading="lazy"
+        fit="contain"
       />
       <Text mt={10} fz={18}>
         {category.name}

@@ -6,3 +6,4 @@ export * from "./HorizontalCounter";
 export * from "./Loader";
 export * from "./Search";
 export * from "./ThemeSettings";
+export * from "./UploadImage";
