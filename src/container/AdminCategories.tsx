@@ -352,8 +352,8 @@ export const AdminCategories = () => {
             recordsPerPage={PAGE_SIZE}
             page={page}
             onPageChange={setPage}
-            rowFactory={({ record, index, rowProps, children }) => (
-              <SortableRow key={index} row={record} rowProps={rowProps}>
+            rowFactory={({ record, index, children }) => (
+              <SortableRow key={index} row={record}>
                 {children}
               </SortableRow>
             )}
@@ -367,11 +367,9 @@ export const AdminCategories = () => {
 const SortableRow = ({
   row,
   children,
-  rowProps,
 }: {
   row: Category;
   children: ReactNode;
-  rowProps: any;
 }) => {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: row.id });
