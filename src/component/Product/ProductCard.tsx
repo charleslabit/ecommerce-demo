@@ -10,6 +10,7 @@ import {
   Stack,
   Text,
 } from "@mantine/core";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 interface ProductCardProps {
@@ -17,7 +18,6 @@ interface ProductCardProps {
   cartQuantity: number;
   onAddToCart: () => void;
   onQuantityChange: (quantity: number) => void;
-  onClick: (id: string) => void;
 }
 
 export const ProductCard: React.FC<ProductCardProps> = ({
@@ -25,9 +25,18 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   cartQuantity,
   onAddToCart,
   onQuantityChange,
-  onClick,
 }) => {
+  const router = useRouter();
   const [isHovered, setIsHovered] = useState(false);
+
+  // Handler to prefetch the product page when hovering over a product card
+  const handlePrefetch = () => {
+    router.prefetch(`/${product?.id}`);
+  };
+
+  const handleClick = () => {
+    router.push(`/${product?.id}`);
+  };
 
   return (
     <Card
@@ -39,7 +48,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       radius="md"
       withBorder
       key={product?.id}
-      onClick={() => onClick(product?.id)}
+      onClick={handleClick}
+      onMouseEnter={handlePrefetch}
     >
       {/* Image Wrapper with Hover Effect */}
       <div

@@ -50,19 +50,20 @@ export const ProductsContainer = () => {
       </Group>
       <Flex wrap="wrap" gap={30} justify="center">
         {products.length > 0 ? (
-          products.map((product) => (
-            <ProductCard
-              key={product.id}
-              product={product}
-              cartQuantity={
-                cartItems.find((item) => item.productId === product.id)
-                  ?.quantity || 0
-              }
-              onAddToCart={() => onClickAddToCart(product)}
-              onQuantityChange={(value) => updateCartItems(product, value)}
-              onClick={(id) => router.push(`/${id}`)}
-            />
-          ))
+          products.map((product) => {
+            return (
+              <ProductCard
+                key={product.id}
+                product={product}
+                cartQuantity={
+                  cartItems.find((item) => item.productId === product.id)
+                    ?.quantity || 0
+                }
+                onAddToCart={() => onClickAddToCart(product)}
+                onQuantityChange={(value) => updateCartItems(product, value)}
+              />
+            );
+          })
         ) : (
           <Empty />
         )}
