@@ -18,8 +18,8 @@ import {
 import {
   IconBrandGithub,
   IconBrandGoogle,
+  IconDatabase,
   IconLogout2,
-  IconSettings,
   IconShoppingCart,
   IconUser,
 } from "@tabler/icons-react";
@@ -52,7 +52,7 @@ export const Header = ({ session }: { session: Session | null }) => {
   };
 
   const onClickCart = () => router.push("/cart");
-  const onClickInventory = () => router.push("/admin/categories");
+  const onClickAdminPage = () => router.push("/admin");
 
   return (
     <Center h="100%">
@@ -83,15 +83,15 @@ export const Header = ({ session }: { session: Session | null }) => {
           </Indicator>
           <ThemeSettings />
           <Tooltip
-            label={"Inventory Management"}
+            label={"Database Management"}
             events={{
               hover: true,
               focus: true,
               touch: true,
             }}
           >
-            <ActionIcon variant="transparent" onClick={onClickInventory}>
-              <IconSettings />
+            <ActionIcon variant="transparent" onClick={onClickAdminPage}>
+              <IconDatabase />
             </ActionIcon>
           </Tooltip>
         </Group>

@@ -41,10 +41,10 @@ export interface Product {
   id: string;
   categoryId: string;
   name: string;
-  description: string;
+  description?: string;
   imageUrls: string[]; // Array for multiple images (e.g., galleries)
-  dateCreated: string;
-  dateUpdated: string;
+  dateCreated?: string;
+  dateUpdated?: string;
   rating?: number;
   stock: number;
   tags?: string[]; // For improved search and filtering
@@ -53,6 +53,15 @@ export interface Product {
   isEnableCounter?: boolean; // Used for displaying the HorizontalCounter when additing to cart in products page
   isFeatured?: boolean;
   quantity?: number;
+}
+
+export interface ProductInput {
+  categoryId: string;
+  name: string;
+  description?: string;
+  imageUrls: string[];
+  stock: number;
+  price: number;
 }
 
 export interface CartItem {

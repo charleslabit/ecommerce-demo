@@ -1,13 +1,11 @@
+import { fetchCategories } from "@/lib/categories";
 import { Category } from "@/types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export function useCategories() {
   return useQuery<Category[]>({
     queryKey: ["categories"],
-    queryFn: async () => {
-      const res = await fetch("/api/categories", { cache: "no-store" });
-      return res.json();
-    },
+    queryFn: fetchCategories,
   });
 }
 

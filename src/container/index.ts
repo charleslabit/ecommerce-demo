@@ -1,5 +1,6 @@
 "use client";
 export * from "./AdminCategories";
+export * from "./AdminContainer";
 export * from "./AdminProducts";
 export * from "./CartContainer";
 export * from "./CategoriesContainer";

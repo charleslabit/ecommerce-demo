@@ -1,4 +1,4 @@
-import { fetchProduct } from "@/services";
+import { fetchProduct } from "@/lib/products";
 import { useQuery } from "@tanstack/react-query";
 
 interface ProductParams {

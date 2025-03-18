@@ -1,5 +1,6 @@
 import { ProductContainer } from "@/container";
-import { fetchProduct } from "@/services";
+import { fetchProduct } from "@/lib/products";
+
 import {
   dehydrate,
   HydrationBoundary,

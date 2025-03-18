@@ -3,7 +3,9 @@ import {
   ProductsContainer,
   PromoBannerContainer,
 } from "@/container";
-import { fetchBanners, fetchCategories, fetchProducts } from "@/services";
+import { fetchBanners } from "@/lib/banners";
+import { fetchCategories } from "@/lib/categories";
+import { fetchProducts } from "@/lib/products";
 import {
   dehydrate,
   HydrationBoundary,

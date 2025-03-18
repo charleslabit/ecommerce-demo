@@ -261,6 +261,7 @@ export const AdminCategories = () => {
             <Text fz={18}>
               Are you sure you want to delete {category?.name}?
             </Text>
+
             <Group mt="md" justify="end">
               <Button variant="default" onClick={closeModal}>
                 Cancel
