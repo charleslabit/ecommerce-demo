@@ -83,6 +83,7 @@ export const Header = ({ session }: { session: Session | null }) => {
               onClick={onClickCart}
               mt={5}
               data-testid="cart-icon"
+              aria-label="Open cart"
             >
               <IconShoppingCart size={100} />
             </ActionIcon>
@@ -96,7 +97,12 @@ export const Header = ({ session }: { session: Session | null }) => {
               touch: true,
             }}
           >
-            <ActionIcon variant="transparent" onClick={onClickAdminPage}>
+            <ActionIcon
+              variant="transparent"
+              onClick={onClickAdminPage}
+              aria-label="Go to Admin Page"
+              data-testid="admin-db"
+            >
               <IconDatabase />
             </ActionIcon>
           </Tooltip>

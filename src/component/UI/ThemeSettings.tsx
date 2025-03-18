@@ -21,6 +21,7 @@ export const ThemeSettings = () => {
         variant="transparent"
         onClick={toggleDarkMode}
         data-testid="theme-settings"
+        aria-label="Toggle Theme Settings"
       >
         {colorScheme === "dark" ? <IconSun /> : <IconMoon />}
       </ActionIcon>

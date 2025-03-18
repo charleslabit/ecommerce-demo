@@ -35,8 +35,10 @@ export const PromoBannerContainer = () => {
       slideGap="xs"
       controlSize={40}
       align="center"
-      nextControlIcon={<IconCircleChevronRight />}
-      previousControlIcon={<IconCircleChevronLeft />}
+      nextControlIcon={<IconCircleChevronRight aria-label="Next Carousel" />}
+      previousControlIcon={
+        <IconCircleChevronLeft aria-label="Previous Carousel" />
+      }
       withIndicators
       onSlideChange={setActiveIndex}
       plugins={[autoplay.current]}

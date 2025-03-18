@@ -30,6 +30,7 @@ export const Footer = () => {
                 component="a"
                 href="/default/Charles-Kenneth-Labit-CV.pdf"
                 target="_blank"
+                aria-label="Download Charles Kenneth Labit CV"
               >
                 <IconFileCv />
               </ActionIcon>
@@ -38,6 +39,7 @@ export const Footer = () => {
                 component="a"
                 href="https://www.github.com/charleslabit"
                 target="_blank"
+                aria-label="Visit Charles Kenneth Labit's GitHub profile"
               >
                 <IconBrandGithubFilled />
               </ActionIcon>
@@ -46,6 +48,7 @@ export const Footer = () => {
                 component="a"
                 href="https://www.linkedin.com/in/charleslabit/"
                 target="_blank"
+                aria-label="Visit Charles Kenneth Labit's LinkedIn profile"
               >
                 <IconBrandLinkedinFilled />
               </ActionIcon>
@@ -54,6 +57,7 @@ export const Footer = () => {
                 component="a"
                 href="https://www.facebook.com/charleskieeeee"
                 target="_blank"
+                aria-label="Visit Charles Kenneth Labit's Facebook profile"
               >
                 <IconBrandFacebookFilled />
               </ActionIcon>
