@@ -26,7 +26,7 @@ import {
 import { Session, User } from "next-auth";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const DEFAULT_AVATAR =
   "https://img.freepik.com/free-vector/fresh-purple-eggplant_24877-82136.jpg?ga=GA1.1.484030290.1741493567&semt=ais_hybrid";
@@ -36,6 +36,12 @@ export const Header = ({ session }: { session: Session | null }) => {
   const { cartItems } = useCartStore();
   const [guestSession, setGuestSession] = useState<{ user: User } | null>(null);
   const currentUser = guestSession || session; // Use guest session if available
+
+  // Prefetching the /cart page before the user clicks on it
+  useEffect(() => {
+    router.prefetch("/cart");
+    router.prefetch("/admin");
+  }, [router]);
 
   const handleLogin = async (provider: string) => {
     await login(provider);
