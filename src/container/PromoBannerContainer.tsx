@@ -15,7 +15,11 @@ export const PromoBannerContainer = () => {
   const { data: banners = [] } = useBanners();
 
   useEffect(() => {
-    return () => autoplay.current?.stop(); // Cleanup on unmount
+    const instance = autoplay.current; // Store ref in a variable
+
+    return () => {
+      if (instance) instance.stop();
+    };
   }, []);
 
   // Memoized handlers

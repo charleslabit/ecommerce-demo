@@ -19,6 +19,10 @@ const eslintConfig = [
       // Add any other rules you'd like to disable or customize
       "no-console": "warn", // Example: Warnings for console logs
       "react/prop-types": "off", // Example: Disabling prop-types validation
+      "@typescript-eslint/no-unused-vars": [
+        "warn",
+        { argsIgnorePattern: "^_" }, //This way, any argument starting with _ is ignored automatically
+      ],
     },
   },
 ];

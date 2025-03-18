@@ -29,7 +29,7 @@ export const UploadImage = ({
 
   const renderImage = (src: string) => (
     <Box className="cursor-pointer" pos="relative" h={height}>
-      <Image height="100%" src={src} fit="contain" />
+      <Image height="100%" src={src} fit="contain" alt="Uploaded Image" />
       <ActionIcon
         pos="absolute"
         top={-15}
