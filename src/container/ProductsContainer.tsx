@@ -5,12 +5,10 @@ import { useProducts } from "@/hooks";
 import useCartStore from "@/store/cart";
 import { SortByOptions } from "@/types";
 import { Alert, Flex, Group, Select, Stack, Text } from "@mantine/core";
-import { useQueryClient } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import { useQueryState } from "nuqs";
 
 export const ProductsContainer = () => {
-  const queryClient = useQueryClient();
   const categoryId = (useSearchParams().get("categoryId") as string) ?? "";
   const [search] = useQueryState("search", {
     defaultValue: "",
@@ -24,13 +22,6 @@ export const ProductsContainer = () => {
     search,
     sortBy,
   });
-  console.log(
-    queryClient
-      .getQueryCache()
-      .getAll()
-      .map((cache) => cache.queryKey)
-  );
-  console.log("product page", products);
   const { cartItems, updateCartItems } = useCartStore();
 
   if (isLoading) return <Loader />;
