@@ -51,11 +51,11 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://ecommerce-demo-orpin.vercel.app/"),
 
   openGraph: {
-    title: "Charles Kenneth Labit | Front-End Developer",
+    title: "CK Mart | E-Commerce Store for Quality Products",
     description:
-      "Creating seamless and interactive web experiences with modern web technologies.",
+      "Shop the latest and greatest products on CK Mart, your one-stop online store for electronics, fashion, and more. Fast, reliable, and secure.",
     url: "https://charleslabit-portfolio.vercel.app/",
-    siteName: "Charles Kenneth Labit Portfolio",
+    siteName: "CK Mart",
     images: [
       {
         url: "https://charleslabit-portfolio.vercel.app/default/ck-profile.png",
@@ -68,9 +68,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Charles Kenneth Labit | Front-End Developer",
+    title: "CK Mart | Shop Quality Products Online",
     description:
-      "Building modern, responsive, and interactive web applications.",
+      "Find the best deals on electronics, fashion, and home goods at CK Mart. Start shopping now for top-notch products delivered to your door.",
     images: [
       "https://charleslabit-portfolio.vercel.app/default/ck-profile.png",
     ],
