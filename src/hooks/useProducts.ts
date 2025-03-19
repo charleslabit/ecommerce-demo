@@ -1,9 +1,13 @@
 import { fetchProducts } from "@/lib/products";
 import useCartStore from "@/store/cart";
-import { Product, ProductInput, ProductsProps } from "@/types";
+import { Product, ProductInput, ProductsProps, SortByOptions } from "@/types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-export const useProducts = ({ categoryId, search, sortBy }: ProductsProps) => {
+export const useProducts = ({
+  categoryId = "",
+  search = "",
+  sortBy = SortByOptions.NONE,
+}: ProductsProps) => {
   const queryClient = useQueryClient();
   const { cartItems, updateCartItems } = useCartStore();
   const {
@@ -38,30 +42,27 @@ export const useProducts = ({ categoryId, search, sortBy }: ProductsProps) => {
 // Create a new product
 export function useCreateProduct() {
   const queryClient = useQueryClient();
-  const productsQueries = queryClient.getQueriesData<Product[]>({
-    queryKey: ["products"],
-  });
-  const allProducts = productsQueries
-    .map(([_, products]) => products) // Extract product lists
-    .flat() // Merge them into a single array
-    .filter(Boolean); // Remove undefined values
 
   return useMutation({
     mutationFn: async (product: ProductInput) => {
-      const clonedProducts = [...allProducts];
-      const highestValue = Math.max(
-        0,
-        ...clonedProducts.map((p) => Number(p?.id))
-      );
-      const newProduct = { ...product, id: highestValue + 1 };
       const res = await fetch("/api/products", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newProduct),
+        body: JSON.stringify(product),
       });
+      if (!res.ok) throw new Error("Failed to create product");
       return res.json();
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["products"] }),
+    onSuccess: (newProduct) => {
+      queryClient
+        .getQueriesData<Product[]>({ queryKey: ["products"] })
+        .forEach(([queryKey, oldProducts]) => {
+          //Get the dynamic keys
+          if (Array.isArray(oldProducts)) {
+            queryClient.setQueryData(queryKey, [newProduct, ...oldProducts]);
+          }
+        });
+    },
   });
 }
 
@@ -75,9 +76,24 @@ export function useUpdateProduct() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(product),
       });
+      if (!res.ok) throw new Error("Failed to update product");
       return res.json();
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["products"] }),
+    onSuccess: (updatedProduct) => {
+      queryClient
+        .getQueriesData<Product[]>({ queryKey: ["products"] })
+        .forEach(([queryKey, oldProducts]) => {
+          //Get the dynamic keys
+          if (Array.isArray(oldProducts)) {
+            queryClient.setQueryData(
+              queryKey,
+              oldProducts?.map((product) =>
+                product.id === updatedProduct.id ? updatedProduct : product
+              )
+            );
+          }
+        });
+    },
   });
 }
 
@@ -91,8 +107,13 @@ export function useDeleteProduct() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id }),
       });
+      if (!res.ok) throw new Error("Failed to delete product");
       return res.json();
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["products"] }),
+    onSuccess: (deletedProduct) => {
+      queryClient.setQueryData(["products"], (oldProducts?: Product[]) =>
+        oldProducts?.filter((product) => product.id !== deletedProduct.id)
+      );
+    },
   });
 }

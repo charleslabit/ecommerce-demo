@@ -67,7 +67,7 @@ export const Footer = () => {
             <Group w={300}>
               <Card h={70} w={100} ta="center" m="auto">
                 <Image
-                  className="fade-in hover-effect cursor-pointer"
+                  className="fade-in hover-effect cursor-pointer cursor-not-allowed"
                   radius="25%"
                   h={"100%"}
                   w={"100%"}
@@ -80,7 +80,7 @@ export const Footer = () => {
 
               <Card h={70} w={100} ta="center" m="auto">
                 <Image
-                  className="fade-in hover-effect cursor-pointer"
+                  className="fade-in hover-effect cursor-pointer cursor-not-allowed"
                   radius="25%"
                   src={"/payment-methods/gcash.svg"}
                   alt={"gcash logo"}
@@ -93,7 +93,7 @@ export const Footer = () => {
 
               <Card h={70} w={100} ta="center" m="auto">
                 <Image
-                  className="fade-in hover-effect cursor-pointer"
+                  className="fade-in hover-effect cursor-pointer cursor-not-allowed"
                   radius="25%"
                   h={"100%"}
                   w={"100%"}
@@ -105,7 +105,7 @@ export const Footer = () => {
               </Card>
               <Card h={70} w={100} ta="center" m="auto">
                 <Image
-                  className="fade-in hover-effect cursor-pointer"
+                  className="fade-in hover-effect cursor-pointer cursor-not-allowed"
                   radius="25%"
                   h={"100%"}
                   w={"100%"}
@@ -124,7 +124,7 @@ export const Footer = () => {
         </Grid.Col>
         <Grid.Col span={1}>
           <Text>CK Mart is now available!</Text>
-          <Group mb={40} w={300}>
+          <Group mb={40} w={300} className="cursor-not-allowed">
             <Image src={"/app/AppStore.svg"} alt="Appstore Logo" />
             <Image src={"/app/GooglePlay.svg"} alt="Googleplay Logo" />
           </Group>

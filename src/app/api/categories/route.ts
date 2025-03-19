@@ -1,31 +1,40 @@
 import { mockCategories } from "@/mocks";
-import { Category } from "@/types";
+import { Category, CategoryInput } from "@/types";
 import { NextResponse } from "next/server";
 export const dynamic = "force-dynamic";
 
 let categories = [...mockCategories]; // Mock database
 
 export async function GET() {
-  return NextResponse.json(categories);
+  return NextResponse.json(categories, { status: 200 });
 }
 
 export async function POST(req: Request) {
-  const body: Omit<Category, "id"> = await req.json();
-  const newCategory: Category = { id: Date.now().toString(), ...body };
-  categories.push(newCategory);
+  const category: CategoryInput = await req.json();
+  const newCategory: Category = { ...category, id: Date.now().toString() };
   return NextResponse.json(newCategory, { status: 201 });
 }
 
 export async function PUT(req: Request) {
-  const { id, name, imageUrl } = await req.json();
-  categories = categories.map((cat) =>
-    cat.id === id ? { ...cat, name, imageUrl } : cat
+  const { id, name, imageUrl }: Category = await req.json();
+  const updatedCategory = categories.find((cat) => cat.id === id);
+  if (!updatedCategory) {
+    return NextResponse.json({ error: "Category not found" }, { status: 404 });
+  }
+  return NextResponse.json(
+    { ...updatedCategory, name, imageUrl },
+    { status: 200 }
   );
-  return NextResponse.json({ message: "Category updated" });
 }
 
 export async function DELETE(req: Request) {
   const { id } = await req.json();
-  categories = categories.filter((cat) => cat.id !== id);
-  return NextResponse.json({ message: "Category deleted" });
+  const deletedCategory = categories.find((cat) => cat.id === id);
+
+  if (!deletedCategory) {
+    return NextResponse.json({ error: "Category not found" }, { status: 404 });
+  }
+  return NextResponse.json(deletedCategory, {
+    status: 200,
+  });
 }

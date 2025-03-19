@@ -87,3 +87,7 @@ export interface ProductsProps {
 }
 
 export type FileProps = File | string | null;
+
+export interface CategoryInput {
+  name: string;
+}

@@ -1,5 +1,5 @@
 import { fetchCategories } from "@/lib/categories";
-import { Category } from "@/types";
+import { Category, CategoryInput } from "@/types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export function useCategories() {
@@ -11,26 +11,22 @@ export function useCategories() {
 
 export function useCreateCategory() {
   const queryClient = useQueryClient();
-  const categories = queryClient.getQueryData<Category[]>(["categories"]) || [];
 
   return useMutation({
-    mutationFn: async (category: Omit<Category, "id">) => {
-      const clonedCategories = [...categories];
-      const highestValue = Math.max(
-        0,
-        ...clonedCategories.map((cat) => Number(cat.id))
-      );
-      const newCategory = { ...category, id: highestValue + 1 };
-
+    mutationFn: async (category: CategoryInput) => {
       const res = await fetch("/api/categories", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newCategory),
+        body: JSON.stringify(category),
       });
+      if (!res.ok) throw new Error("Failed to create category");
       return res.json();
     },
-    onSuccess: () =>
-      queryClient.invalidateQueries({ queryKey: ["categories"] }),
+    onSuccess: (newCategory) =>
+      queryClient.setQueryData(["categories"], (oldData: Category[]) => [
+        newCategory,
+        ...(oldData || []),
+      ]),
   });
 }
 
@@ -43,10 +39,15 @@ export function useUpdateCategory() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(category),
       });
+      if (!res.ok) throw new Error("Failed to update category");
       return res.json();
     },
-    onSuccess: () =>
-      queryClient.invalidateQueries({ queryKey: ["categories"] }),
+    onSuccess: (updatedCategory) =>
+      queryClient.setQueryData(["categories"], (oldData: Category[]) =>
+        oldData?.map((cat) =>
+          cat.id === updatedCategory.id ? updatedCategory : cat
+        )
+      ),
   });
 }
 
@@ -59,9 +60,12 @@ export function useDeleteCategory() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id }),
       });
+      if (!res.ok) throw new Error("Failed to delete category");
       return res.json();
     },
-    onSuccess: () =>
-      queryClient.invalidateQueries({ queryKey: ["categories"] }),
+    onSuccess: (deletedCategory) =>
+      queryClient.setQueryData(["categories"], (oldData: Category[]) =>
+        oldData?.filter((cat) => cat.id !== deletedCategory.id)
+      ),
   });
 }

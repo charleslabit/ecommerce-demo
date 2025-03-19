@@ -118,6 +118,7 @@ export const AdminProducts = () => {
             onSubmit={(values) => {
               createProduct(values, {
                 onSuccess: () => {
+                  console.log("client success");
                   setModal({ open: false, action: null, product: null });
                   notifications.show({
                     title: "Success",
