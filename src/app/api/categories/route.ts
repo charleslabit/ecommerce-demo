@@ -3,7 +3,7 @@ import { Category, CategoryInput } from "@/types";
 import { NextResponse } from "next/server";
 export const dynamic = "force-dynamic";
 
-let categories = [...mockCategories]; // Mock database
+const categories = [...mockCategories]; // Mock database
 
 export async function GET() {
   return NextResponse.json(categories, { status: 200 });

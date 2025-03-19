@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
 
-let products = [...mockProducts]; // Mock database
+const products = [...mockProducts]; // Mock database
 
 export async function GET() {
   return NextResponse.json(products, { status: 200 });
